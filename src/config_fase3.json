@@ -1,0 +1,81 @@
+{
+  "semilla": 42,
+  "objetivo": "cantidad",
+  "unidad_de_analisis": "fecha_vta x local x desc_secciones",
+  "fecha_corte": "2021-08-19",
+  "proporcion_test": 0.2,
+  "variables_numericas": [
+    "temperatura",
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "media_movil_7",
+    "media_movil_28"
+  ],
+  "variables_calendario": [
+    "dia_semana",
+    "es_fin_de_semana",
+    "mes",
+    "es_feriado",
+    "es_quincena",
+    "es_fin_de_mes"
+  ],
+  "variables_categoricas": [
+    "local",
+    "desc_secciones"
+  ],
+  "predictoras": [
+    "temperatura",
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "media_movil_7",
+    "media_movil_28",
+    "dia_semana",
+    "es_fin_de_semana",
+    "mes",
+    "es_feriado",
+    "es_quincena",
+    "es_fin_de_mes",
+    "local",
+    "desc_secciones"
+  ],
+  "secciones": [
+    "Almacen",
+    "Bazar",
+    "Bebidas",
+    "Belleza y Salud",
+    "Insumos",
+    "Limpieza",
+    "Perecederos ",
+    "Produccion",
+    "Tienda"
+  ],
+  "locales": [
+    "Local X",
+    "Local Y"
+  ],
+  "n_train": 2835,
+  "n_test": 594,
+  "linea_base": {
+    "base_media": {
+      "modelo": "Base 1 — media por local x sección",
+      "n": 594,
+      "RMSE": 1077.2431680818127,
+      "MAE": 603.789082990959,
+      "MAPE_%": 67.40258376526695,
+      "R2": 0.7809569615268409,
+      "filas_excluidas_MAPE": 0
+    },
+    "base_naive_lag7": {
+      "modelo": "Base 2 — ingenua estacional (lag-7)",
+      "n": 594,
+      "RMSE": 700.6424405079651,
+      "MAE": 317.97842777777777,
+      "MAPE_%": 39.45459549180469,
+      "R2": 0.9073394573000135,
+      "filas_excluidas_MAPE": 0
+    },
+    "mejor": "Base 2 — ingenua estacional (lag-7)"
+  }
+}
