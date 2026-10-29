@@ -26,7 +26,7 @@ conjunto de datos.
 | Nombre | Usuario de GitHub | Responsabilidad principal |
 |---|---|---|
 | Leyda Fleitas | `leydafleitas` | Fase 1 (preparación de datos) · Fase 3 Parte 1 (diseño del experimento) |
-| _(completar)_ | _(completar)_ | _(completar)_ |
+| Ryuto Maehara | `rmae-5` | Fase 2 (analisis exploratorio) · Fase 3 Parte 2 (modelado) |
 | _(completar)_ | _(completar)_ | _(completar)_ |
 
 ---
@@ -148,7 +148,7 @@ tamaños de efecto y corrección por comparaciones múltiples.
 
 ```
 notebooks/fase3_parte1_diseno_experimento.ipynb     (Parte 1 — completada)
-notebooks/fase3_parte2_modelado.ipynb               (Parte 2 — pendiente)
+notebooks/fase3_parte2_modelado.ipynb               (Parte 2 — completada)
 notebooks/fase3_parte3_evaluacion.ipynb             (Parte 3 — pendiente)
 ```
 
@@ -158,7 +158,14 @@ y establece las líneas base.
 **Consume:** `df_final.parquet`
 **Produce:** `data/panel_modelado.parquet`, `output/config_fase3.json`, `src/metricas_fase3.py`
 
-**Parte 2** entrena los modelos sobre `particion == 'train'`, con validación cruzada temporal.
+**Parte 2** entrena y ajusta los modelos sobre `particion == 'train'`, con validación cruzada temporal
+(`DateTimeSeriesSplit`, 5 pliegues de 28 días) y diagnóstico explícito del sobreajuste.
+
+**Consume:** `data/panel_modelado.parquet`, `output/config_fase3.json`, `src/metricas_fase3.py`
+**Produce:** `notebooks/fase3_parte2_modelado.ipynb`, `output/fase3_parte2_modelado.html`,
+`output/modelos_fase3_parte2.joblib`, `output/modelo_random_forest.joblib`, `output/modelo_ridge.joblib`,
+`output/resultados_cv_fase3.json`, `output/comparativa_modelado_train_val.csv`
+
 **Parte 3** evalúa sobre `particion == 'test'` una sola vez, analiza errores, interpreta el modelo y lo
 serializa.
 
@@ -207,7 +214,25 @@ La línea base a superar es la **ingenua estacional**, no la de la media. En ser
 semanal fuerte, predecir el valor del mismo día de la semana anterior ya alcanza un R² de 0,907: un modelo
 que no supere ese valor no justifica su existencia.
 
-_(Resultados del modelado y la evaluación: pendientes de las Partes 2 y 3.)_
+#### Parte 2 — Modelado y validación cruzada temporal (Train: 2.835 obs., 5 pliegues de 28 días)
+
+| Familia | Modelo / Hiperparámetros óptimos | Train RMSE | CV Val RMSE | CV Val MAE | CV Val MAPE | CV Val R² | Brecha (Val - Tr) |
+|---|---|---|---|---|---|---|---|
+| Línea Base | Base 1 — Media por grupo | 1167,4 | 1162,7 ± 169,5 | 645,0 | 38,9 % | 0,833 | −4,7 |
+| **Línea Base** | **Base 2 — Lag-7 estacional** | **850,9** | **748,1 ± 421,6** | **376,8** | **23,1 %** | **0,927** | **−102,8** |
+| Lineal regularizado | Ridge ($\alpha = 20,0$) | 657,1 | 618,0 ± 256,5 | 352,1 | 34,8 % | 0,952 | **−39,1** |
+| **Árboles (Bagging)** | **Random Forest (n=150, d=16, leaf=2)** | **398,9** | **573,4 ± 271,1** | **288,7** | **18,6 %** | **0,958** | **+174,5** |
+| Árboles (Boosting) | HistGradientBoosting (lr=0,03, d=4, iter=150) | 435,2 | 638,0 ± 250,9 | 312,5 | 23,7 % | 0,949 | +202,8 |
+| Basado en distancias | KNN (k=7, distance) | 0,0 | 680,0 ± 292,2 | 367,7 | 28,8 % | 0,943 | +680,0 |
+
+**Modelo campeón:** `Random Forest Regressor` supera a la línea base ingenua estacional en un **23,3 % en RMSE** (573,4 vs 748,1) y un **23,4 % en MAE** (288,7 vs 376,8), alcanzando un **R² de 0,958** en validación out-of-sample con un MAPE del 18,6 %.
+
+**Diagnóstico del sobreajuste:**
+- **Ridge:** Sobreajuste nulo (brecha de −39,1 unidades), la penalización $\ell_2$ amortigua la multicolinealidad de los rezagos.
+- **Random Forest:** Mejor capacidad predictiva con brecha controlada (+174,5 unidades) mediante restricciones de profundidad máxima y muestras por hoja.
+- **KNN:** Evidencia memorización perfecta en entrenamiento ($\text{RMSE} = 0,0$) pero menor generalización ($\text{RMSE} = 680,0$), subrayando el valor metodológico de reportar la validación out-of-sample.
+
+_(Resultados de la evaluación definitiva sobre test e interpretabilidad: pendientes de la Parte 3.)_
 
 ---
 

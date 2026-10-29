@@ -1,0 +1,90 @@
+{
+  "mejor_modelo": "Random Forest Regressor",
+  "mejores_hiperparametros_rf": {
+    "reg__max_depth": 16,
+    "reg__max_features": "sqrt",
+    "reg__min_samples_leaf": 2,
+    "reg__n_estimators": 150
+  },
+  "mejores_hiperparametros_ridge": {
+    "alpha": 20.0
+  },
+  "mejores_hiperparametros_hgb": {
+    "reg__learning_rate": 0.03,
+    "reg__max_depth": 4,
+    "reg__max_iter": 150,
+    "reg__min_samples_leaf": 10
+  },
+  "mejores_hiperparametros_knn": {
+    "reg__n_neighbors": 7,
+    "reg__weights": "distance"
+  },
+  "resultados_cv": [
+    {
+      "Familia": "Línea Base",
+      "Modelo": "Base 1 — Media por grupo",
+      "Train RMSE": 1167.38,
+      "CV Val RMSE": 1162.6969174159844,
+      "CV Val RMSE (std)": 169.48790468022088,
+      "CV Val MAE": 645.0055142741618,
+      "CV Val MAPE (%)": 38.850570350976085,
+      "CV Val R²": 0.8334222086272456,
+      "Brecha RMSE (Val - Tr)": -4.683082584015665
+    },
+    {
+      "Familia": "Línea Base",
+      "Modelo": "Base 2 — Lag-7 estacional",
+      "Train RMSE": 850.85,
+      "CV Val RMSE": 748.0508876955105,
+      "CV Val RMSE (std)": 421.62535370450144,
+      "CV Val MAE": 376.7976589306353,
+      "CV Val MAPE (%)": 23.113248294186615,
+      "CV Val R²": 0.9265242507109231,
+      "Brecha RMSE (Val - Tr)": -102.79911230448954
+    },
+    {
+      "Familia": "Lineal",
+      "Modelo": "Ridge (alpha=20)",
+      "Train RMSE": 657.1046340662263,
+      "CV Val RMSE": 617.9550395218668,
+      "CV Val RMSE (std)": 256.4983858985778,
+      "CV Val MAE": 352.0764810924278,
+      "CV Val MAPE (%)": 34.80481790519288,
+      "CV Val R²": 0.952033606059701,
+      "Brecha RMSE (Val - Tr)": -39.1495945443595
+    },
+    {
+      "Familia": "Árboles (Bagging)",
+      "Modelo": "Random Forest (n=150, d=16)",
+      "Train RMSE": 398.9069324607229,
+      "CV Val RMSE": 573.3905244276757,
+      "CV Val RMSE (std)": 271.1224953745381,
+      "CV Val MAE": 288.6685518266073,
+      "CV Val MAPE (%)": 18.56904333149945,
+      "CV Val R²": 0.9578568124898066,
+      "Brecha RMSE (Val - Tr)": 174.48359196695282
+    },
+    {
+      "Familia": "Árboles (Boosting)",
+      "Modelo": "HistGradientBoosting",
+      "Train RMSE": 435.2129509797978,
+      "CV Val RMSE": 637.9770167375483,
+      "CV Val RMSE (std)": 250.85284094698022,
+      "CV Val MAE": 312.48936043533416,
+      "CV Val MAPE (%)": 23.73090776519023,
+      "CV Val R²": 0.949303437172086,
+      "Brecha RMSE (Val - Tr)": 202.76406575775047
+    },
+    {
+      "Familia": "Basado en Distancias",
+      "Modelo": "KNN (k=7, distance)",
+      "Train RMSE": 0.00011172886301180004,
+      "CV Val RMSE": 679.9863995355893,
+      "CV Val RMSE (std)": 292.2282168286473,
+      "CV Val MAE": 367.71062788632463,
+      "CV Val MAPE (%)": 28.818507679651788,
+      "CV Val R²": 0.9425523089097707,
+      "Brecha RMSE (Val - Tr)": 679.9862878067263
+    }
+  ]
+}
