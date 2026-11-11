@@ -1,0 +1,43 @@
+{
+  "modelo_campeon": "Random Forest Regressor",
+  "fecha_inicio_test": "2021-08-19",
+  "fecha_fin_test": "2021-09-30",
+  "n_train": 2835,
+  "n_test": 594,
+  "metricas_test": [
+    {
+      "Modelo": "Base 1 — media por local × sección",
+      "n": 594,
+      "RMSE": 1077.2431680818127,
+      "MAE": 603.789082990959,
+      "MAPE_%": 67.40258376526695,
+      "R2": 0.7809569615268409,
+      "filas_excluidas_MAPE": 0
+    },
+    {
+      "Modelo": "Base 2 — ingenua estacional (lag-7)",
+      "n": 594,
+      "RMSE": 700.6424405079651,
+      "MAE": 317.97842777777777,
+      "MAPE_%": 39.45459549180469,
+      "R2": 0.9073394573000135,
+      "filas_excluidas_MAPE": 0
+    },
+    {
+      "Modelo": "Random Forest — modelo campeón",
+      "n": 594,
+      "RMSE": 547.6542647398601,
+      "MAE": 239.61244287941489,
+      "MAPE_%": 37.73968659777452,
+      "R2": 0.9433871646519921,
+      "filas_excluidas_MAPE": 0
+    }
+  ],
+  "reduccion_rmse_vs_lag7_pct": 21.83541374644516,
+  "reduccion_mae_vs_lag7_pct": 24.645063328990886,
+  "residuo_medio": -22.62315661233248,
+  "residuo_mediano": -30.847444179914376,
+  "nota_importancia": "Importancia predictiva por permutación; no implica causalidad.",
+  "peores_casos_exportados": 20,
+  "advertencia": "El conjunto test se evalúa una sola vez; no debe usarse para reajustar el modelo."
+}
