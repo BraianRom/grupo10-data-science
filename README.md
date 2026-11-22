@@ -110,16 +110,16 @@ los archivos originales.
 ├── data/
 │   └── panel_modelado.parquet        Panel de la Fase 3 (entrada directa del modelado)
 ├── docs/                             Informes y diccionario de datos
-├── fase2/                            Notebooks, informe y HTML de la Fase 2
-├── notebooks/                        Notebooks de las Fases 1 y 3
+├── notebooks/                        Notebooks de las tres fases
 ├── output/                           Artefactos: configuración, métricas, modelos, gráficos
 ├── src/                              Código reutilizable entre fases
 ├── requirements.txt
 └── README.md
 ```
 
-Los notebooks de la Fase 2 quedaron en su propia carpeta `fase2/` por la organización inicial del
-trabajo; se mantienen allí para no romper las rutas ya referenciadas en el informe de esa fase.
+La Fase 2 aporta dos notebooks: `fase2-Completo.ipynb` contiene las cinco hipótesis y es el que
+corresponde a la entrega de la fase, mientras que `fase2.ipynb` conserva únicamente los contrastes H1 y
+H2 tal como se desarrollaron por separado antes de integrarlos.
 
 ---
 
@@ -148,7 +148,7 @@ Los notebooks deben ejecutarse **en orden**, porque cada uno consume artefactos 
 #### Fase 1 — Comprensión, preparación y análisis exploratorio
 
 ```
-notebooks/fase1                       (notebook de limpieza e integración)
+notebooks/fase1.ipynb                 (limpieza, integración y variables de calendario)
 notebooks/fase1_dataset_final.ipynb   (análisis exploratorio)
 ```
 
@@ -161,7 +161,7 @@ estación meteorológica a cada local, cruza ambas fuentes y agrega las variable
 #### Fase 2 — Análisis inferencial
 
 ```
-fase2/fase2-Completo.ipynb
+notebooks/fase2-Completo.ipynb
 ```
 
 Contrasta las cinco hipótesis derivadas del análisis exploratorio, con verificación de supuestos,
@@ -331,8 +331,5 @@ no se sostiene una vez corregido por comparaciones múltiples.
 ---
 
 ## 10. Licencia y uso
-Trabajo académico. Los datos de ventas fueron provistos por la cátedra y se utilizan exclusivamente con
-fines educativos.
-
 Trabajo académico. Los datos de ventas fueron provistos por la cátedra y se utilizan exclusivamente con
 fines educativos.
